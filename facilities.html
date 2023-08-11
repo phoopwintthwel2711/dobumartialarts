@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+:root {
+  --navbar-bg-color: hsl(0, 0%, 100%);
+  --navbar-text-color: hsl(0, 0%, 0%);
+  --navbar-text-color-focus: rgb(241, 239, 237);
+  --navbar-bg-contrast: hsl(0, 0%, 25%);
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+.container {
+  max-width: 1000px;
+  padding-left: 1.4rem;
+  padding-right: 1.4rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+#navbar {
+  --navbar-height: 64px;
+  position: fixed;
+  height: var(--navbar-height);
+  background-color: var(--navbar-bg-color);
+  left: 0;
+  right: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  align-items: center;
+}
+.navbar-item {
+  margin: 0.4em;
+  width: 100%;
+}
+
+.home-link,
+.navbar-link {
+  color: var(--navbar-text-color);
+  text-decoration: none;
+  display: flex;
+  font-weight: 400;
+  align-items: center;
+}
+
+.home-link:is(:focus, :hover) {
+  color: var(--navbar-text-color-focus);
+}
+
+.navbar-link {
+  justify-content: center;
+  width: 100%;
+  padding: 0.4em 0.8em;
+  border-radius: 5px;
+}
+
+.navbar-link:is(:focus, :hover) {
+  color: var(--navbar-text-color-focus);
+  background-color: var(--navbar-bg-contrast);
+}
+.navbar-logo {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin-right: 0.5em;
+}
+.navbar-logo img {
+  width: 40px; /* Set the initial width of the logo */
+  height: auto; /* Allow the height to adjust proportionally */
+}
+
+/* Media query for responsiveness */
+@media screen and (max-width: 700px) {
+  /* Adjust the logo size for smaller screens */
+  .navbar-logo img {
+    width: 25px;
+  }
+}
+#navbar-toggle {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.icon-bar {
+  display: block;
+  width: 25px;
+  height: 4px;
+  margin: 2px;
+  background-color: var(--navbar-text-color);
+}
+#navbar-toggle:is(:focus, :hover) .icon-bar {
+  background-color: var(--navbar-text-color-focus);
+}
+#navbar-toggle[aria-expanded="true"] .icon-bar:is(:first-child, :last-child) {
+  position: absolute;
+  margin: 0;
+  width: 30px;
+}
+#navbar-toggle[aria-expanded="true"] .icon-bar:first-child {
+  transform: rotate(45deg);
+}
+#navbar-toggle[aria-expanded="true"] .icon-bar:nth-child(2) {
+  opacity: 0;
+}
+#navbar-toggle[aria-expanded="true"] .icon-bar:last-child {
+  transform: rotate(-45deg);
+}
+#navbar-menu {
+  position: fixed;
+  top: var(--navbar-height);
+  bottom: 0;
+  opacity: 0;
+  visibility: hidden;
+  left: 0;
+  right: 0;
+}
+#navbar-toggle[aria-expanded="true"] + #navbar-menu {
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 1;
+  visibility: visible;
+}
+.navbar-links {
+  list-style: none;
+  position: absolute;
+  background-color: var(--navbar-bg-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  left: 0;
+  right: 0;
+  margin: 1.4rem;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+#navbar-toggle[aria-expanded="true"] + #navbar-menu .navbar-links {
+  padding: 1em;
+}
+@media screen and (min-width: 700px) {
+  #navbar-toggle,
+  #navbar-toggle[aria-expanded="true"] {
+    display: none;
+  }
+
+  #navbar-menu,
+  #navbar-toggle[aria-expanded="true"] #navbar-menu {
+    visibility: visible;
+    opacity: 1;
+    position: static;
+    display: block;
+    height: 100%;
+  }
+
+  .navbar-links,
+  #navbar-toggle[aria-expanded="true"] #navbar-menu .navbar-links {
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    position: static;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
+.container1 {
+  padding-top: 150px; /* Add some top padding to create space for the navigation */
+  padding-bottom: 100px; /* Add some bottom padding to create space for the footer */
+  text-align: center;
+}
+h1 {
+  font-size: 50px;
+  word-break: break-all;
+  text-align: center;
+}
+
+.row {
+  margin: 9px -18px;
+}
+
+/* Add padding BETWEEN each column */
+.row,
+.row > .column {
+  padding: 8px;
+}
+
+/* Create four equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 25%;
+}
+
+/* Clear floats after rows */ 
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Content */
+.content {
+  background-color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 900px) {
+  .column {
+    width: 50%;
+  }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+}
+
+
+body{
+margin:0;
+overflow-x:hidden;
+}
+
+.footer{
+background:#000;
+padding:30px 0px;
+font-family: 'Play', sans-serif;
+text-align:center;
+}
+
+.footer .row{
+width:100%;
+margin:1% 0%;
+padding:0.6% 0%;
+color:gray;
+font-size:0.8em;
+}
+
+.footer .row a{
+text-decoration:none;
+color:gray;
+transition:0.5s;
+}
+
+.footer .row a:hover{
+color:#fff;
+}
+
+.footer .row ul{
+width:100%;
+}
+
+.footer .row ul li{
+display:inline-block;
+margin:0px 30px;
+}
+
+.footer .row a i{
+font-size:2em;
+margin:0% 1%;
+}
+
+@media (max-width:720px){
+.footer{
+text-align:left;
+padding:5%;
+}
+.footer .row ul li{
+display:block;
+margin:10px 0px;
+text-align:left;
+}
+.footer .row a i{
+margin:0% 3%;
+}
+}
+</style>
+</head>
+<body>
+  <header id="navbar">
+    <nav class="navbar-container container">
+      <a href="./index.html" class="home-link"> 
+        <div class="navbar-logo">
+          <img src="LOGO.png" alt="Logo">
+        </div>
+        DOBU
+      </a>
+      <button type="button" id="navbar-toggle" aria-controls="navbar-menu" aria-label="Toggle menu" aria-expanded="false">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div id="navbar-menu" aria-labelledby="navbar-toggle">
+        <ul class="navbar-links">
+          <li class="navbar-item"><a class="navbar-link" href="./classes.html">Classes</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="./courses.html">Courses</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="./facilities.html">Faciities</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="./mandp.html">Membership and Pricing</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="./aboutus.html">About</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+ 
+<div class="container1">
+    <h2>Facilities</h2>
+    <p>DoBu Martial Arts enhances the overall training experience for members. The combination of a safe and versatile matted area, a fully-equipped gym for comprehensive workouts, relaxing sauna and steam rooms, and convenient changing facilities creates an environment that supports members' physical and mental well-being, encouraging them to achieve their fitness and martial arts goals effectively.</p>
+    
+    <!-- Portfolio Gallery Grid -->
+    <div class="row">
+      <div class="column">
+        <div class="content">
+          <img src="https://s3-media0.fl.yelpcdn.com/bphoto/hExUEBVbigYvr07xCEDP5Q/l.jpg" alt="Mountains" style="width:100%">
+          <h3>Large and Matted Martial Arts Area</h3>
+          <p>Cushioned surface reduces the risk of injuries.
+            Enhances balance and technique precision.
+            Accommodates various martial arts disciplines.</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="content">
+        <img src="https://th.bing.com/th/id/R.017df68d2a51d6d659b9f33725a9c1e1?rik=oQykNaQPsMAjSw&riu=http%3a%2f%2fagrabadhotel.com%2fen%2fwp-content%2fuploads%2f2016%2f05%2fgym01.jpg&ehk=DiKW3I9fkAUiNn%2fiokJbOtO1A3dhMHBrMmuLJnQH6D0%3d&risl=&pid=ImgRaw&r=0" alt="Lights" style="width:100%">
+          <h3>Fully-Equipped Gym</h3>
+          <p>Wide range of fitness equipment for diverse workouts.
+           Supports martial artists' performance and endurance.
+            Members can customize their routines.</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="content">
+        <img src="https://i.pinimg.com/originals/83/4c/0a/834c0abe43e75df414a1e2934a6fd373.jpg" alt="Nature" style="width:100%">
+          <h3>Sauna</h3>
+          <p>Provides a peaceful environment for stress relief.
+            Promotes elimination of toxins through sweating.
+            Aids in post-workout muscle relaxation.</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="content">
+        <img src="https://th.bing.com/th/id/R.3296edb4384ca5407305e28edd00948f?rik=jdBmIZHNmgEHsA&pid=ImgRaw&r=0" alt="Mountains" style="width:100%">
+          <h3>Steam Room</h3>
+          <p>Helps open airways for better breathing.
+            Improves skin hydration and complexion.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+       
+        <div class="column">
+            <div class="content">
+              <img src="https://th.bing.com/th/id/OIP.ZmZKI6A4FjNJ2jvDRD2NCQHaEK?pid=ImgDet&w=768&h=432&rs=1" alt="Mountains" style="width:100%">
+              <h3>Changing</h3>
+              <p>Offers a comfortable space for changing and freshening up.
+                Respects members' privacy with private changing rooms.</p>
+            </div>
+          </div>
+        <div class="column">
+          <div class="content">
+          <img src="http://tong.visitkorea.or.kr/cms/resource/52/2798152_image2_1.jpg" alt="Nature" style="width:100%">
+            <h3>Shower</h3>
+            <p>Encourages members to rehydrate post-workout.
+                A well-maintained shower room contributes to an overall positive experience at the gym.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    <div class="content">
+      <h2>What We Provide</h2>
+      <h3>DOBU provides like a martial arts area with mats, a fully furnished gym, a sauna, a steam room, and changing rooms.</h3>
+    </div>
+    
+    <!-- END MAIN -->
+ </div>
+ 
+   <footer>
+    <div class="footer">
+    <div class="row">
+    <a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a>
+    <a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a>
+    <a href="https://www.youtube.com/"><i class="fa fa-youtube"></i></a>
+    <a href="https://twitter.com/login"><i class="fa fa-twitter"></i></a>
+    </div>
+    <div class="row">
+      <h3>Company</h3>
+      <ul>
+        <li><a href="./contact.html">Contact Us</a></li>
+        <li><a href="./aboutus.html">About Us</a></li>
+        <li><a href="./FAQ.html">FAQ</a></li>
+        <li><a href="./SiteMap.html">SiteMap</a></li>
+      </ul>
+    </div>
+
+    <div class="row">
+      <h3>Legal</h3>
+      <ul>
+        <li><a href="./privacy&policy.html">Privacy Policy</a></li>
+        <li><a href="./privacy&policy.html">Terms & Conditions</a></li>
+      </ul>
+    </div>
+    <div class="row">
+    INFERNO Copyright © 2021 Inferno - All rights reserved || Designed By: Mahesh 
+    </div>
+    </div>
+    </footer>
+
+    <script>
+    const navbarToggle = navbar.querySelector("#navbar-toggle");
+const navbarMenu = document.querySelector("#navbar-menu");
+const navbarLinksContainer = navbarMenu.querySelector(".navbar-links");
+let isNavbarExpanded = navbarToggle.getAttribute("aria-expanded") === "true";
+
+const toggleNavbarVisibility = () => {
+  isNavbarExpanded = !isNavbarExpanded;
+  navbarToggle.setAttribute("aria-expanded", isNavbarExpanded);
+};
+
+navbarToggle.addEventListener("click", toggleNavbarVisibility);
+
+navbarLinksContainer.addEventListener("click", (e) => e.stopPropagation());
+navbarMenu.addEventListener("click", toggleNavbarVisibility);
+  </script> 
+</body>
+</html>

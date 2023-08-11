@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css"
+    integrity="sha512-Z/def5z5u2aR89OuzYcxmDJ0Bnd5V1cKqBEbvLOiUNWdg9PQeXVvXLI90SE4QOHGlfLqUnDNVAYyZi8UwUTmWQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Play&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+
+  <title>DOBU Martial Art</title>
+  <style>
+    :root {
+      --navbar-bg-color: hsl(0, 0%, 100%);
+      --navbar-text-color: hsl(0, 0%, 0%);
+      --navbar-text-color-focus: rgb(241, 239, 237);
+      --navbar-bg-contrast: hsl(0, 0%, 25%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1000px;
+      padding-left: 1.4rem;
+      padding-right: 1.4rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #navbar {
+      --navbar-height: 64px;
+      position: fixed;
+      height: var(--navbar-height);
+      background-color: var(--navbar-bg-color);
+      left: 0;
+      right: 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    .navbar-container {
+      display: flex;
+      justify-content: space-between;
+      height: 100%;
+      align-items: center;
+    }
+
+    .navbar-item {
+      margin: 0.4em;
+      width: 100%;
+    }
+
+    .home-link,
+    .navbar-link {
+      color: var(--navbar-text-color);
+      text-decoration: none;
+      display: flex;
+      font-weight: 400;
+      align-items: center;
+    }
+
+    .home-link:is(:focus, :hover) {
+      color: var(--navbar-text-color-focus);
+    }
+
+    .navbar-link {
+      justify-content: center;
+      width: 100%;
+      padding: 0.4em 0.8em;
+      border-radius: 5px;
+    }
+
+    .navbar-link:is(:focus, :hover) {
+      color: var(--navbar-text-color-focus);
+      background-color: var(--navbar-bg-contrast);
+    }
+
+    .navbar-logo {
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      margin-right: 0.5em;
+    }
+
+    .navbar-logo img {
+      width: 40px;
+      /* Set the initial width of the logo */
+      height: auto;
+      /* Allow the height to adjust proportionally */
+    }
+
+    /* Media query for responsiveness */
+    @media screen and (max-width: 700px) {
+
+      /* Adjust the logo size for smaller screens */
+      .navbar-logo img {
+        width: 25px;
+      }
+    }
+
+    #navbar-toggle {
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .icon-bar {
+      display: block;
+      width: 25px;
+      height: 4px;
+      margin: 2px;
+      background-color: var(--navbar-text-color);
+    }
+
+    #navbar-toggle:is(:focus, :hover) .icon-bar {
+      background-color: var(--navbar-text-color-focus);
+    }
+
+    #navbar-toggle[aria-expanded="true"] .icon-bar:is(:first-child, :last-child) {
+      position: absolute;
+      margin: 0;
+      width: 30px;
+    }
+
+    #navbar-toggle[aria-expanded="true"] .icon-bar:first-child {
+      transform: rotate(45deg);
+    }
+
+    #navbar-toggle[aria-expanded="true"] .icon-bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    #navbar-toggle[aria-expanded="true"] .icon-bar:last-child {
+      transform: rotate(-45deg);
+    }
+
+    #navbar-menu {
+      position: fixed;
+      top: var(--navbar-height);
+      bottom: 0;
+      opacity: 0;
+      visibility: hidden;
+      left: 0;
+      right: 0;
+    }
+
+    #navbar-toggle[aria-expanded="true"]+#navbar-menu {
+      background-color: rgba(0, 0, 0, 0.4);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .navbar-links {
+      list-style: none;
+      position: absolute;
+      background-color: var(--navbar-bg-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      left: 0;
+      right: 0;
+      margin: 1.4rem;
+      border-radius: 5px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    #navbar-toggle[aria-expanded="true"]+#navbar-menu .navbar-links {
+      padding: 1em;
+    }
+
+    @media screen and (min-width: 700px) {
+
+      #navbar-toggle,
+      #navbar-toggle[aria-expanded="true"] {
+        display: none;
+      }
+
+      #navbar-menu,
+      #navbar-toggle[aria-expanded="true"] #navbar-menu {
+        visibility: visible;
+        opacity: 1;
+        position: static;
+        display: block;
+        height: 100%;
+      }
+
+      .navbar-links,
+      #navbar-toggle[aria-expanded="true"] #navbar-menu .navbar-links {
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        position: static;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+
+    .content h1 {
+      text-align: center;
+      color: #000;
+    }
+
+    .content h4 {
+      text-align: center;
+      color: #000;
+    }
+
+
+    body {
+      margin-top: 20px;
+    }
+
+    .bg-light-gray {
+      background-color: #f7f7f7;
+    }
+
+    .table-bordered thead td,
+    .table-bordered thead th {
+      border-bottom-width: 2px;
+    }
+
+    .table thead th {
+      vertical-align: bottom;
+      border-bottom: 2px solid #dee2e6;
+    }
+
+    .table-bordered td,
+    .table-bordered th {
+      border: 1px solid #dee2e6;
+    }
+
+    .timetable-cell {
+      padding: .75rem;
+      vertical-align: top;
+    }
+
+    .bg-sky {
+      background-color: #02c2c7
+    }
+
+    .bg-orange {
+      background-color: #e95601
+    }
+
+    .bg-green {
+      background-color: #5bbd2a
+    }
+
+    .bg-yellow {
+      background-color: #f0d001
+    }
+
+    .bg-pink {
+      background-color: #ff48a4
+    }
+
+    .bg-purple {
+      background-color: #9d60ff
+    }
+
+    .bg-lightred {
+      background-color: #ff5722
+    }
+
+    .bg-lightredblue {
+      background-color: #22f8ff
+    }
+
+    .bg-lightpp {
+      background-color: #e7d3ff
+    }
+
+    .bg-lightpurple {
+      background-color: #c697ff
+    }
+
+    .bg-lightgreen {
+      background-color: #e8ff19
+    }
+
+
+    .padding-15px-lr {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    .padding-5px-tb {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .margin-10px-bottom {
+      margin-bottom: 10px;
+    }
+
+    .border-radius-5 {
+      border-radius: 5px;
+    }
+
+    .margin-10px-top {
+      margin-top: 10px;
+    }
+
+    .font-size14 {
+      font-size: 14px;
+    }
+
+    .text-light-gray {
+      color: #d6d5d5;
+    }
+
+    .font-size13 {
+      font-size: 13px;
+    }
+
+    .table-bordered td,
+    .table-bordered th {
+      border: 1px solid #dee2e6;
+    }
+
+    .table td,
+    .table th {
+      padding: .75rem;
+      vertical-align: top;
+      border-top: 1px solid #dee2e6;
+    }
+
+    @media (max-width: 720px) {
+      .table {
+        font-size: 12px;
+      }
+
+      .table th,
+      .table td {
+        padding: 0.5rem;
+      }
+
+      .timetable-cell span {
+        font-size: 14px;
+      }
+    }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    .footer {
+      background: #000;
+      padding: 30px 0px;
+      font-family: 'Play', sans-serif;
+      text-align: center;
+    }
+
+    .footer .row {
+      width: 100%;
+      margin: 1% 0%;
+      padding: 0.6% 0%;
+      color: gray;
+      font-size: 0.8em;
+    }
+
+    .footer .row a {
+      text-decoration: none;
+      color: gray;
+      transition: 0.5s;
+    }
+
+    .footer .row a:hover {
+      color: #fff;
+    }
+
+    .footer .row ul {
+      width: 100%;
+    }
+
+    .footer .row ul li {
+      display: inline-block;
+      margin: 0px 30px;
+    }
+
+    .footer .row a i {
+      font-size: 2em;
+      margin: 0% 1%;
+    }
+
+    @media (max-width:720px) {
+      .footer {
+        text-align: left;
+        padding: 5%;
+      }
+
+      .footer .row ul li {
+        display: block;
+        margin: 10px 0px;
+        text-align: left;
+      }
+
+      .footer .row a i {
+        margin: 0% 3%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header id="navbar">
+    <nav class="navbar-container container">
+      <a href="./index.html" class="home-link">
+        <div class="navbar-logo">
+          <img src="LOGO.png" alt="Logo">
+        </div>
+        DOBU
+      </a>
+      <button type="button" id="navbar-toggle" aria-controls="navbar-menu" aria-label="Toggle menu"
+        aria-expanded="false">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div id="navbar-menu" aria-labelledby="navbar-toggle">
+        <ul class="navbar-links">
+          <li class="navbar-item"><a class="navbar-link" href="./classes.html">Classes</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="./courses.html">Courses</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="./facilities.html">Faciities</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="./mandp.html">Membership and Pricing</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="./aboutus.html">About</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <section class="content">
+    <h1>Class Highlight</h1>
+  </section>
+  <div class="container">
+    <div class="timetable-img text-center">
+      <img src="img/content/timetable.png" alt="">
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr class="bg-light-gray">
+            <th class="text-uppercase">Time
+            </th>
+            <th class="text-uppercase">Monday</th>
+            <th class="text-uppercase">Tuesday</th>
+            <th class="text-uppercase">Wednesday</th>
+            <th class="text-uppercase">Thursday</th>
+            <th class="text-uppercase">Friday</th>
+            <th class="text-uppercase">Saturday</th>
+            <th class="text-uppercase">Sunday</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="align-middle">06:00-07:30</td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-yellow">Jiu-Jitsu</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-sky">Karate</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-purple">Judo</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-yellow">Jiu-Jitsu</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-green">Muay-Thai</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightredblue">No Classes</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightredblue">No Classes</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="align-middle">08:00-10:00</td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-green">Muay-Thai</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightred">PrivateTuition</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightred">PrivateTuition</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightred">PrivateTuition</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-yellow">Jiu-Jitsu</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightred">PrivateTuition</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightred">PrivateTuition</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="align-middle">10:30-12:00</td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightred">PrivateTuition</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightred">PrivateTuition</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightred">PrivateTuition</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightred">PrivateTuition</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightred">PrivateTuition</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-purple">Judo</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-sky">Karate</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="align-middle">13:00-14:30</td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightpurple">Open mat/Personal Practice</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightpurple">Open mat/Personal Practice</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightpurple">Open mat/Personal Practice</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightpurple">Open mat/Personal Practice</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightpurple">Open mat/Personal Practice</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-sky">Karate</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-purple">Judo</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="align-middle">15:00-17:00</td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightgreen">Kid Jiu-Jitsu</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightpp">Kid Judo</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-orange">Kid Karate</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightgreen">Kid Jiu-Jitsu</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightpp">Kid Judo</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-green">Muay-Thai</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-yellow">Jiu-Jitsu</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="align-middle">17:30-19:00</td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-sky">Karate</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-green">Muay-Thai</div>
+            </td>
+
+            <td>
+              <div class="margin-10px-top font-size20 bg-purple">Judo</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-yellow">Jiu-Jitsu</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-green">Muay-Thai</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightredblue">No Classes</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightredblue">No Classes</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="align-middle">19:00-21:00</td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-yellow">Jiu-Jitsu</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-purple">Judo</div>
+            </td>
+
+            <td>
+              <div class="margin-10px-top font-size20 bg-yellow">Jiu-Jitsu</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-sky">Karate</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightred">PrivateTuition</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightredblue">No Classes</div>
+            </td>
+            <td>
+              <div class="margin-10px-top font-size20 bg-lightredblue">No Classes</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer">
+      <div class="row">
+        <div class="col-12">
+          <a href="#"><i class="fa fa-facebook"></i></a>
+          <a href="#"><i class="fa fa-instagram"></i></a>
+          <a href="#"><i class="fa fa-youtube"></i></a>
+          <a href="#"><i class="fa fa-twitter"></i></a>
+        </div>
+      </div>
+
+      <div class="row">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="./contact.html">Contact Us</a></li>
+          <li><a href="./aboutus.html">About Us</a></li>
+          <li><a href="./FAQ.html">FAQ</a></li>
+          <li><a href="./SiteMap.html">SiteMap</a></li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="./privacy&policy.html">Privacy Policy</a></li>
+          <li><a href="./privacy&policy.html">Terms & Conditions</a></li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          INFERNO Copyright © 2021 Inferno - All rights reserved || Designed By: Mahesh
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+  <script>
+    const navbarToggle = navbar.querySelector("#navbar-toggle");
+    const navbarMenu = document.querySelector("#navbar-menu");
+    const navbarLinksContainer = navbarMenu.querySelector(".navbar-links");
+    let isNavbarExpanded = navbarToggle.getAttribute("aria-expanded") === "true";
+
+    const toggleNavbarVisibility = () => {
+      isNavbarExpanded = !isNavbarExpanded;
+      navbarToggle.setAttribute("aria-expanded", isNavbarExpanded);
+    };
+
+    navbarToggle.addEventListener("click", toggleNavbarVisibility);
+
+    navbarLinksContainer.addEventListener("click", (e) => e.stopPropagation());
+    navbarMenu.addEventListener("click", toggleNavbarVisibility);
+  </script>
+
+
+</body>
+
+</html>

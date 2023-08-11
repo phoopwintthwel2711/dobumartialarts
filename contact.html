@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Contact us with map || Learning Robo</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Play&display=swap" rel="stylesheet"> 
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+  <style>
+:root {
+  --navbar-bg-color: hsl(0, 0%, 100%);
+  --navbar-text-color: hsl(0, 0%, 0%);
+  --navbar-text-color-focus: rgb(241, 239, 237);
+  --navbar-bg-contrast: hsl(0, 0%, 25%);
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+.container {
+  max-width: 1000px;
+  padding-left: 1.4rem;
+  padding-right: 1.4rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+#navbar {
+  --navbar-height: 64px;
+  position: fixed;
+  height: var(--navbar-height);
+  background-color: var(--navbar-bg-color);
+  left: 0;
+  right: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  align-items: center;
+}
+.navbar-item {
+  margin: 0.4em;
+  width: 100%;
+}
+
+.home-link,
+.navbar-link {
+  color: var(--navbar-text-color);
+  text-decoration: none;
+  display: flex;
+  font-weight: 400;
+  align-items: center;
+}
+
+.home-link:is(:focus, :hover) {
+  color: var(--navbar-text-color-focus);
+}
+
+.navbar-link {
+  justify-content: center;
+  width: 100%;
+  padding: 0.4em 0.8em;
+  border-radius: 5px;
+}
+
+.navbar-link:is(:focus, :hover) {
+  color: var(--navbar-text-color-focus);
+  background-color: var(--navbar-bg-contrast);
+}
+.navbar-logo {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin-right: 0.5em;
+}
+.navbar-logo img {
+  width: 40px; /* Set the initial width of the logo */
+  height: auto; /* Allow the height to adjust proportionally */
+}
+
+/* Media query for responsiveness */
+@media screen and (max-width: 700px) {
+  /* Adjust the logo size for smaller screens */
+  .navbar-logo img {
+    width: 25px;
+  }
+}
+#navbar-toggle {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.icon-bar {
+  display: block;
+  width: 25px;
+  height: 4px;
+  margin: 2px;
+  background-color: var(--navbar-text-color);
+}
+#navbar-toggle:is(:focus, :hover) .icon-bar {
+  background-color: var(--navbar-text-color-focus);
+}
+#navbar-toggle[aria-expanded="true"] .icon-bar:is(:first-child, :last-child) {
+  position: absolute;
+  margin: 0;
+  width: 30px;
+}
+#navbar-toggle[aria-expanded="true"] .icon-bar:first-child {
+  transform: rotate(45deg);
+}
+#navbar-toggle[aria-expanded="true"] .icon-bar:nth-child(2) {
+  opacity: 0;
+}
+#navbar-toggle[aria-expanded="true"] .icon-bar:last-child {
+  transform: rotate(-45deg);
+}
+#navbar-menu {
+  position: fixed;
+  top: var(--navbar-height);
+  bottom: 0;
+  opacity: 0;
+  visibility: hidden;
+  left: 0;
+  right: 0;
+}
+#navbar-toggle[aria-expanded="true"] + #navbar-menu {
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 1;
+  visibility: visible;
+}
+.navbar-links {
+  list-style: none;
+  position: absolute;
+  background-color: var(--navbar-bg-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  left: 0;
+  right: 0;
+  margin: 1.4rem;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+#navbar-toggle[aria-expanded="true"] + #navbar-menu .navbar-links {
+  padding: 1em;
+}
+@media screen and (min-width: 700px) {
+  #navbar-toggle,
+  #navbar-toggle[aria-expanded="true"] {
+    display: none;
+  }
+
+  #navbar-menu,
+  #navbar-toggle[aria-expanded="true"] #navbar-menu {
+    visibility: visible;
+    opacity: 1;
+    position: static;
+    display: block;
+    height: 100%;
+  }
+
+  .navbar-links,
+  #navbar-toggle[aria-expanded="true"] #navbar-menu .navbar-links {
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    position: static;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+  }
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+    /* Style inputs */
+    input[type=text], select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      margin-top: 6px;
+      margin-bottom: 16px;
+      resize: vertical;
+    }
+    input[type=submit] {
+      background-color: #04AA6D;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      cursor: pointer;
+    }
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+    /* Style the container/contact section */
+    .container1 {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 60px;
+    }
+    /* Create two columns that float next to each other */
+    .column {
+      float: left;
+      width: 50%;
+      margin-top: 6px;
+      padding: 20px;
+    }
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Make the map responsive */
+.map-responsive {
+  overflow: hidden;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+  position: relative;
+}
+
+.map-responsive iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+  /* Mobile Devices - Phones/Tablets */
+  @media only screen and (max-width: 720px) { 
+            /* Existing mobile styles here */
+
+            /* Adjustments for smaller screens like iPad Air and Surface Pro 7 */
+            .container {
+                padding: 20px;
+            }
+
+            .row {
+                display: block;
+            }
+
+            .column {
+                width: 100%;
+            }
+
+            .column img {
+                width: 100%;
+            }
+        }
+
+        /* Tablets - iPad Air and Surface Pro 7 */
+        @media only screen and (min-width: 768px) and (max-width: 1024px) {
+            /* Existing tablet styles here */
+
+            /* Adjustments for iPad Air and Surface Pro 7 */
+            .container {
+                padding: 30px;
+            }
+
+            .row {
+                display: block;
+            }
+
+            .column {
+                width: 100%;
+            }
+
+            .column img {
+                width: 100%;
+            }
+        }
+
+  body{
+margin:0;
+overflow-x:hidden;
+}
+
+.footer{
+background:#000;
+padding:30px 0px;
+font-family: 'Play', sans-serif;
+text-align:center;
+}
+
+.footer .row{
+width:100%;
+margin:1% 0%;
+padding:0.6% 0%;
+color:gray;
+font-size:0.8em;
+}
+
+.footer .row a{
+text-decoration:none;
+color:gray;
+transition:0.5s;
+}
+
+.footer .row a:hover{
+color:#fff;
+}
+
+.footer .row ul{
+width:100%;
+}
+
+.footer .row ul li{
+display:inline-block;
+margin:0px 30px;
+}
+
+.footer .row a i{
+font-size:2em;
+margin:0% 1%;
+}
+
+@media (max-width:720px){
+.footer{
+text-align:left;
+padding:5%;
+}
+.footer .row ul li{
+display:block;
+margin:10px 0px;
+text-align:left;
+}
+.footer .row a i{
+margin:0% 3%;
+}
+}
+    </style>
+</head>
+<body>
+    
+  <header id="navbar">
+    <nav class="navbar-container container">
+      <a href="./index.html" class="home-link"> 
+        <div class="navbar-logo">
+          <img src="LOGO.png" alt="Logo">
+        </div>
+        DOBU
+      </a>
+      <button type="button" id="navbar-toggle" aria-controls="navbar-menu" aria-label="Toggle menu" aria-expanded="false">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div id="navbar-menu" aria-labelledby="navbar-toggle">
+        <ul class="navbar-links">
+          <li class="navbar-item"><a class="navbar-link" href="./classes.html">Classes</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="./courses.html">Courses</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="./facilities.html">Faciities</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="./mandp.html">Membership and Pricing</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="./aboutus.html">About</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+       
+
+      <div class="container1">
+        <div style="text-align:center">
+          <h2>Contact Us</h2>
+          <p>Swing by for a cup of coffee, or leave us a message:</p>
+        </div>
+      <div class="row">
+        <div class="column">
+          <!-- Replace "your_map_embed_link" with the actual Google Maps embed link for your location -->
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49637.82146931415!2dYOUR_LONGITUDE!3dYOUR_LATITUDE!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDI4JzA5LjIiTiA0wrAxNic0Ny43Ilc!5e0!3m2!1sen!2sus!4v1627691234567!5m2!1sen!2sus" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div class="column">
+          <form action="/action_page.php">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="firstname" placeholder="Your name..">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+            <label for="country">Country</label>
+            <select id="country" name="country">
+              <option value="australia">Australia</option>
+              <option value="canada">Canada</option>
+              <option value="usa">USA</option>
+            </select>
+            <label for="subject">Subject</label>
+            <textarea id="subject" name="subject" placeholder="Write something.." style="height:170px"></textarea>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+        <div class="footer">
+        <div class="row">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-instagram"></i></a>
+        <a href="#"><i class="fa fa-youtube"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        </div>
+        
+        <div class="row">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="./contact.html">Contact Us</a></li>
+            <li><a href="./aboutus.html">About Us</a></li>
+            <li><a href="./FAQ.html">FAQ</a></li>
+            <li><a href="./SiteMap.html">SiteMap</a></li>
+          </ul>
+        </div>
+  
+        <div class="row">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="./privacy&policy.html">Privacy Policy</a></li>
+            <li><a href="./privacy&policy.html">Terms & Conditions</a></li>
+          </ul>
+        </div>
+        
+        <div class="row">
+        INFERNO Copyright © 2021 Inferno - All rights reserved || Designed By: Mahesh 
+        </div>
+        </div>
+        </footer>
+        <script>  
+          const navbarToggle = navbar.querySelector("#navbar-toggle");
+      const navbarMenu = document.querySelector("#navbar-menu");
+      const navbarLinksContainer = navbarMenu.querySelector(".navbar-links");
+      let isNavbarExpanded = navbarToggle.getAttribute("aria-expanded") === "true";
+      
+      const toggleNavbarVisibility = () => {
+        isNavbarExpanded = !isNavbarExpanded;
+        navbarToggle.setAttribute("aria-expanded", isNavbarExpanded);
+      };
+      
+      navbarToggle.addEventListener("click", toggleNavbarVisibility);
+      
+      navbarLinksContainer.addEventListener("click", (e) => e.stopPropagation());
+      navbarMenu.addEventListener("click", toggleNavbarVisibility);
+        </script> 
+</body>
+</html>
+
+
